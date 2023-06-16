@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .destaque {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <form id="formulario">
+    <label for="data">Insira a data:</label>
+    <input type="date" id="data" name="data">
+    <input type="submit" value="Destacar">
+  </form>
+
+  <table id="calendario">
+    <tr>
+      <th>Domingo</th>
+      <th>Segunda</th>
+      <th>Terça</th>
+      <th>Quarta</th>
+      <th>Quinta</th>
+      <th>Sexta</th>
+      <th>Sábado</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <!-- Célula do calendário para o dia 23/02/2006 -->
+      <td id="destaque"></td>
+      <td>01</td>
+      <td>02</td>
+      <td>03</td>
+    </tr>
+    <!-- Adicione mais linhas para os outros dias do mês -->
+  </table>
+
+  <script>
+    document.getElementById('formulario').addEventListener('submit', function(event) {
+      event.preventDefault(); // Evita o envio padrão do formulário
+      var dataInserida = document.getElementById('data').value;
+      destacarData(dataInserida);
+    });
+
+    function destacarData(data) {
+      var celulaDestaque = document.getElementById('destaque');
+      celulaDestaque.classList.remove('destaque'); // Remove o destaque anterior, se houver
+      celulaDestaque = null;
+
+      var celulasCalendario = document.querySelectorAll('#calendario td');
+      for (var i = 0; i < celulasCalendario.length; i++) {
+        var celula = celulasCalendario[i];
+        if (celula.innerText === data) {
+          celulaDestaque = celula;
+          break;
+        }
+      }
+
+      if (celulaDestaque) {
+        celulaDestaque.classList.add('destaque');
+      }
+    }
+  </script>
+</body>
+</html>
